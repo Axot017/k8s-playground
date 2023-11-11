@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Release.Name }}-profile"
+spec:
+  replicas: 1            
+  selector:
+    matchLabels:
+      service: "{{ .Release.Name }}-profile"
+  template:
+    metadata:
+      labels:
+        service: "{{ .Release.Name }}-profile"
+    spec:
+      containers:
+      - name: profle
+        image: "{{ .Values.proflie.image }}"
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080   
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: profle-service
+spec:
+  type: ClusterIP
+  selector:
+    service: "{{ .Release.Name }}-profile"
+  ports:
+    - port: 8080

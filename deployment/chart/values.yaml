@@ -1,0 +1,6 @@
+local: true
+env: "local"
+profile:
+  image: profile-local
+gateway:
+  image: gateway-local

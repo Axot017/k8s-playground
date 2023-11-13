@@ -11,9 +11,11 @@ type Router struct {
 
 func NewRouter(handlers []handler.Handler) *Router {
 	mux := chi.NewRouter()
-	for _, h := range handlers {
-		h.Register(mux)
-	}
+	mux.Route("/api/profile", func(r chi.Router) {
+		for _, h := range handlers {
+			h.Register(r)
+		}
+	})
 	return &Router{
 		Mux: mux,
 	}

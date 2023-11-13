@@ -1,15 +1,7 @@
 package main
 
-import (
-	"fmt"
-	"net/http"
-)
+import "github.com/Axot017/k8s-playground/gateway/internal"
 
 func main() {
-	http.HandleFunc("/", handler)
-	_ = http.ListenAndServe(":8080", nil)
-}
-
-func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello World!")
+	internal.StartApp()
 }

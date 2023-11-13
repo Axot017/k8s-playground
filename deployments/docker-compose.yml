@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  gateway:
+    build:
+      context: ../gateway
+      dockerfile: ../deployments/Dockerfile
+    ports:
+    - "8080:8080"
+    environment:
+    - PROFILE_SERVICE_DOMAIN_NAME=profile:8080
+  profile:
+    build:
+      context: ../profile
+      dockerfile: ../deployments/Dockerfile
+

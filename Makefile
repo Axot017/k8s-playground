@@ -1,7 +1,7 @@
 gateway:
 	go run gateway/cmd/service/main.go
 
-profile:
+prof:
 	go run profile/cmd/service/main.go
 
 minikube:

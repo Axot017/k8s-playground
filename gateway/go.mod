@@ -2,7 +2,12 @@ module github.com/Axot017/k8s-playground/gateway
 
 go 1.21.3
 
-require go.uber.org/fx v1.20.1
+require (
+	go.uber.org/fx v1.20.1
+	github.com/Axot017/k8s-playground/common v0.0.0
+)
+
+replace github.com/Axot017/k8s-playground/common => ../common
 
 require (
 	go.uber.org/atomic v1.7.0 // indirect

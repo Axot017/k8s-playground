@@ -3,9 +3,12 @@ module github.com/Axot017/k8s-playground/profile
 go 1.21.3
 
 require (
+	github.com/Axot017/k8s-playground/common v0.0.0
 	github.com/go-chi/chi/v5 v5.0.10
 	go.uber.org/fx v1.20.1
 )
+
+replace github.com/Axot017/k8s-playground/common => ../common
 
 require (
 	go.uber.org/atomic v1.7.0 // indirect

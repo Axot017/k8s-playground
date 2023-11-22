@@ -1,16 +1,57 @@
 version: '3'
 
 services:
+  authdb:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: user
+      POSTGRES_DB: keycloak
+    networks:
+      - backend
+    ports:
+    - "5432"
+  keycloak:
+    image: "quay.io/keycloak/keycloak:22.0.5"
+    command: ["start-dev"]
+    depends_on:
+    - authdb
+    environment:
+      KEYCLOAK_ADMIN: user
+      KEYCLOAK_ADMIN_PASSWORD: password
+      DB_VENDOR: POSTGRES
+      DB_ADDR: authdb
+      DB_PORT: 5432
+      DB_DATABASE: keycloak
+      DB_USER: user
+      DB_PASSWORD: password
+    networks:
+      - backend
+    ports:
+      - "8888:8080"
   gateway:
     build:
-      context: ../gateway
-      dockerfile: ../deployments/Dockerfile
+      context: ..
+      dockerfile: ./deployments/Dockerfile
+      args:
+        - MODULE_NAME=gateway
     ports:
     - "8080:8080"
     environment:
     - PROFILE_SERVICE_DOMAIN_NAME=profile:8080
+    networks:
+      - backend
   profile:
     build:
-      context: ../profile
-      dockerfile: ../deployments/Dockerfile
+      context: ..
+      dockerfile: ./deployments/Dockerfile
+      args:
+        - MODULE_NAME=profile
+    networks:
+      - backend
 
+networks:
+  backend:
+    name: backend
+    driver: bridge

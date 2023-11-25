@@ -1,10 +1,10 @@
 package handler
 
 import (
-	"net/http"
 	"net/http/httputil"
 
 	"github.com/Axot017/k8s-playground/gateway/internal/config"
+	"github.com/go-chi/chi/v5"
 )
 
 type ReverseProxy struct {
@@ -18,6 +18,6 @@ func NewReverseProxy(cfg *config.Config) *ReverseProxy {
 	}
 }
 
-func (h *ReverseProxy) Register(r *http.ServeMux) {
-	r.Handle("/api/profile/", h.profileProxy)
+func (h *ReverseProxy) Register(r chi.Router) {
+	r.Mount("/api/profile", h.profileProxy)
 }

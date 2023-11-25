@@ -37,9 +37,11 @@ services:
       args:
         - MODULE_NAME=gateway
     ports:
-    - "8080:8080"
+    - "8000:8000"
     environment:
-    - PROFILE_SERVICE_DOMAIN_NAME=profile:8080
+    - PROFILE_SERVICE_DOMAIN_NAME=profile:8001
+    - PORT=8000
+    - DEBUG=true
     networks:
       - backend
   profile:
@@ -48,6 +50,8 @@ services:
       dockerfile: ./deployments/Dockerfile
       args:
         - MODULE_NAME=profile
+    environment:
+    - PORT=8001
     networks:
       - backend
 

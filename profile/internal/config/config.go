@@ -23,7 +23,7 @@ func getPort() (int, error) {
 	portStr := os.Getenv("PORT")
 	var port int
 	if portStr == "" {
-		port = 8080
+		port = 8001
 	} else {
 		p, err := strconv.Atoi(portStr)
 		if err != nil {

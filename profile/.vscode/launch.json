@@ -5,7 +5,12 @@
             "name": "Debug",
             "type": "go",
             "request": "launch",
-            "program": "cmd/service/main.go"
+            "program": "cmd/service/main.go",
+            "env": {
+                "ENV": "local",
+                "PORT": "8080",
+                "DEBUG": "true"
+            }
         } 
     ]
 }

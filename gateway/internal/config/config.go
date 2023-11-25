@@ -10,6 +10,7 @@ import (
 
 type Config struct {
 	Port              int
+	Debug             bool
 	ProfileServiceUrl url.URL
 }
 
@@ -26,6 +27,7 @@ func NewConfig() (*Config, error) {
 	return &Config{
 		Port:              port,
 		ProfileServiceUrl: profileServiceUrl,
+		Debug:             os.Getenv("DEBUG") == "true",
 	}, nil
 }
 
@@ -45,7 +47,7 @@ func getPort() (int, error) {
 	portStr := os.Getenv("PORT")
 	var port int
 	if portStr == "" {
-		port = 8080
+		port = 8000
 	} else {
 		p, err := strconv.Atoi(portStr)
 		if err != nil {

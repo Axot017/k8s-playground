@@ -6,7 +6,8 @@ import (
 )
 
 type Config struct {
-	Port int
+	Port  int
+	Debug bool
 }
 
 func NewConfig() (*Config, error) {
@@ -15,7 +16,8 @@ func NewConfig() (*Config, error) {
 		return nil, err
 	}
 	return &Config{
-		Port: port,
+		Port:  port,
+		Debug: os.Getenv("DEBUG") == "true",
 	}, nil
 }
 

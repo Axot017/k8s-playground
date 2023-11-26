@@ -7,7 +7,7 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/Axot017/k8s-playground/profile/internal/api"
+	"github.com/Axot017/k8s-playground/profile/internal/api/rest"
 	"github.com/Axot017/k8s-playground/profile/internal/config"
 )
 
@@ -15,7 +15,7 @@ type Http struct {
 	server *http.Server
 }
 
-func NewHttp(mux *api.Router, config *config.Config) *Http {
+func NewHttp(mux *rest.Router, config *config.Config) *Http {
 	slog.Info("Creating HTTP server", "port", config.Port)
 	server := http.Server{
 		Addr:    fmt.Sprintf(":%d", config.Port),

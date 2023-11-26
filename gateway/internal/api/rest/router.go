@@ -1,8 +1,8 @@
-package api
+package rest
 
 import (
-	"github.com/Axot017/k8s-playground/gateway/internal/api/handler"
-	customMiddleware "github.com/Axot017/k8s-playground/gateway/internal/api/middleware"
+	"github.com/Axot017/k8s-playground/gateway/internal/api/rest/handler"
+	customMiddleware "github.com/Axot017/k8s-playground/gateway/internal/api/rest/middleware"
 	"github.com/Axot017/k8s-playground/gateway/internal/config"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -17,7 +17,7 @@ func NewRouter(handlers []handler.Handler, logger *config.Config) *Router {
 	router.Use(middleware.Recoverer)
 	router.Use(middleware.Logger)
 	router.Use(middleware.RealIP)
-	router.Use(customMiddleware.RequestID)
+	router.Use(customMiddleware.GenerateRequestID)
 
 	if logger.Debug {
 		router.Mount("/debug", middleware.Profiler())

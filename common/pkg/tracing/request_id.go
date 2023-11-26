@@ -1,13 +1,13 @@
-package context
+package tracing
 
 import (
 	"context"
 	"log/slog"
 )
 
-type RequestId string
+type requestId string
 
-const requestIdKey RequestId = "request_id"
+const requestIdKey requestId = "request_id"
 
 func SetRequestId(ctx context.Context, requestId string) context.Context {
 	return context.WithValue(ctx, requestIdKey, requestId)
@@ -16,7 +16,7 @@ func SetRequestId(ctx context.Context, requestId string) context.Context {
 func GetRequestId(ctx context.Context) string {
 	requestId, _ := ctx.Value(requestIdKey).(string)
 	if requestId == "" {
-		slog.Error("requestId is empty")
+		slog.ErrorContext(ctx, "requestId is empty")
 	}
 
 	return requestId

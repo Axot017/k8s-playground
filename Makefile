@@ -19,3 +19,6 @@ uninstall:
 
 local:
 	docker-compose -f deployments/docker-compose.yml up --build -d
+
+keycloak:
+	cd deployments/terraform/keycloak/local && terraform init && terraform apply -auto-approve

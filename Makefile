@@ -18,7 +18,7 @@ uninstall:
 	helm uninstall plg-monitoring -n monitoring
 
 local:
-	docker-compose -f deployments/docker-compose.yml up --build -d
+	docker-compose -f deployments/docker-compose.yml up --build
 
 keycloak:
 	cd deployments/terraform/keycloak/local && terraform init && terraform apply -auto-approve

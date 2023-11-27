@@ -1,4 +1,6 @@
 .DS_Store
 
+**/__debug*
+
 **/.terraform
 **/terraform.tfstate*

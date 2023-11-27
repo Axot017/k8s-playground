@@ -1,7 +1,7 @@
 package handler
 
-import "github.com/go-chi/chi/v5"
+import "github.com/labstack/echo/v4"
 
 type Handler interface {
-	Register(r chi.Router)
+	Register(r *echo.Group)
 }

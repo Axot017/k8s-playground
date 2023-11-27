@@ -9,7 +9,8 @@
             "env": {
                 "ENV": "local",
                 "PORT": "8080",
-                "DEBUG": "true"
+                "DEBUG": "true",
+                "PROFILE_SERVICE_DOMAIN_NAME": "http://localhost:8001"
             }
         } 
     ]

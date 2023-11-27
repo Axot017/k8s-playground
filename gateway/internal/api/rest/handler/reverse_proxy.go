@@ -4,7 +4,7 @@ import (
 	"net/http/httputil"
 
 	"github.com/Axot017/k8s-playground/gateway/internal/config"
-	"github.com/go-chi/chi/v5"
+	"github.com/labstack/echo/v4"
 )
 
 type ReverseProxy struct {
@@ -18,6 +18,6 @@ func NewReverseProxy(cfg *config.Config) *ReverseProxy {
 	}
 }
 
-func (h *ReverseProxy) Register(r chi.Router) {
-	r.Mount("/api/profile", h.profileProxy)
+func (h *ReverseProxy) Register(r *echo.Group) {
+	r.Any("/api/profile/*", echo.WrapHandler(h.profileProxy))
 }

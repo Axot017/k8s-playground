@@ -2,31 +2,25 @@ package rest
 
 import (
 	"github.com/Axot017/k8s-playground/gateway/internal/api/rest/handler"
-	customMiddleware "github.com/Axot017/k8s-playground/gateway/internal/api/rest/middleware"
 	"github.com/Axot017/k8s-playground/gateway/internal/config"
-	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
+	"github.com/labstack/echo/v4"
 )
 
 type Router struct {
-	chi.Router
+	*echo.Echo
 }
 
 func NewRouter(handlers []handler.Handler, logger *config.Config) *Router {
-	router := chi.NewMux()
-	router.Use(middleware.Recoverer)
-	router.Use(middleware.Logger)
-	router.Use(middleware.RealIP)
-	router.Use(customMiddleware.GenerateRequestID)
+	echo := echo.New()
+	echo.HideBanner = true
+	echo.HidePort = true
 
-	if logger.Debug {
-		router.Mount("/debug", middleware.Profiler())
-	}
+	g := echo.Group("")
 
 	for _, h := range handlers {
-		h.Register(router)
+		h.Register(g)
 	}
 	return &Router{
-		Router: router,
+		Echo: echo,
 	}
 }

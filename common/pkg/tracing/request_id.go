@@ -5,18 +5,18 @@ import (
 	"log/slog"
 )
 
-type requestId string
+type tracingID string
 
-const requestIdKey requestId = "request_id"
+const tracingIDKey tracingID = "tracing_id"
 
-func SetRequestId(ctx context.Context, requestId string) context.Context {
-	return context.WithValue(ctx, requestIdKey, requestId)
+func SetTracingID(ctx context.Context, id string) context.Context {
+	return context.WithValue(ctx, tracingIDKey, id)
 }
 
-func GetRequestId(ctx context.Context) string {
-	requestId, _ := ctx.Value(requestIdKey).(string)
+func GetTracingID(ctx context.Context) string {
+	requestId, _ := ctx.Value(tracingIDKey).(string)
 	if requestId == "" {
-		slog.ErrorContext(ctx, "requestId is empty")
+		slog.ErrorContext(ctx, "tracing_id is empty")
 	}
 
 	return requestId
